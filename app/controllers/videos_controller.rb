@@ -1,6 +1,12 @@
 class VideosController < ApplicationController
+  before_action :require_user
+
   def index
-    @categories = Category.all
+    if user_signed_in?
+      @categories = Category.all
+    else
+      redirect_to root_path
+    end
   end
 
   def show
