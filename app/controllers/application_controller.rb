@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def require_user
     if !user_signed_in?
       flash["danger"] = "Access limited to members only. Please kindly log in before you proceed."
-      redirect_to root_path
+      redirect_to sign_in_path
     end
   end
 end

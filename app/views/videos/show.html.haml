@@ -11,3 +11,31 @@
         .actions
           %a.btn.btn-primary(href="") Watch Now
           %a.btn.btn-default(href="") + My Queue
+
+%section.reviews.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      = bootstrap_form_for [@video, Review.new], label_errors: true do |f|
+        %fieldset
+          .form-group
+            .row
+              .col-sm-3
+                = f.select :rating, options_for_select([5, 4, 3, 2, 1].map {|number| [pluralize(number, "Star")]}), label: "Rate this video", class: "form-control"
+          .form-group
+            .row
+              .col-sm-8
+                = f.text_area :comment, rows: 6, label: "Write Review", class: "form-control"
+        %fieldset.form-group.actions.clearfix
+          %input(type="submit" value="Submit" class="btn")
+          = link_to "Cancel", @video
+      %header
+        %h3 User Reviews (#{@reviews.count})
+      %ul
+        - @reviews.each do |review|
+          %article.review
+            %li.row
+              .col-sm-2
+                %span Rating: #{review.rating} / 5
+                %p by #{review.user.full_name}
+              .col-sm-8
+                %p= review.comment
