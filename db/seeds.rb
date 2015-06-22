@@ -37,3 +37,7 @@ Video.create(title: 'Futurama', description: 'A show about the future', small_co
 
 Review.create(user_id: 1, video_id: 2, rating: 5, comment: "Awesome video!")
 Review.create(user_id: 1, video_id: 2, rating: 3, comment: "Not very good.")
+
+QueueItem.create(user_id: 2, video_id: 2)
+QueueItem.create(user_id: 2, video_id: 3)
+QueueItem.create(user_id: 2, video_id: 1)
