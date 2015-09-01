@@ -5,11 +5,14 @@ describe ReviewsController do
   describe "POST create" do
     let(:video) { Fabricate(:video) }
     
+    it_behaves_like "requires sign in" do
+      let(:action) { post :create, review: Fabricate.attributes_for(:review), video_id: video.id
+        expect(response).to redirect_to sign_in_path }
+    end 
+    
     context "with authenticated users" do
       let(:user) { Fabricate(:user) }
-      before do
-        session[:user_id] = user.id
-      end
+      before { set_current_user(user) }
 
       context "with valid input" do
         before do
@@ -51,16 +54,9 @@ describe ReviewsController do
           post :create, review: { rating: 5 }, video_id: video.id
           expect(assigns(:reviews)).to match_array([review])
         end
-
       end
     end
 
-    context "with unauthenticated users" do
-      it "should redirect to the sign in path" do
-        post :create, review: Fabricate.attributes_for(:review), video_id: video.id
-        expect(response).to redirect_to sign_in_path
-      end
-    end
   end
 
 end

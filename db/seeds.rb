@@ -35,9 +35,9 @@ Video.create(title: 'Southpark', description: 'A show 4 kids', small_cover_url: 
 Video.create(title: 'Monk', description: 'A show about monks', small_cover_url: '/images/monk.jpg', large_cover_url: '/images/monk_large.jpg', category_id: 2)
 Video.create(title: 'Futurama', description: 'A show about the future', small_cover_url: '/images/futurama.jpg', large_cover_url: '/images/futurama.jpg', category_id: 2)
 
-Review.create(user_id: 1, video_id: 2, rating: 5, comment: "Awesome video!")
-Review.create(user_id: 1, video_id: 2, rating: 3, comment: "Not very good.")
+Review.create(user_id: 2, video_id: 2, rating: 5, comment: "Awesome video!")
+Review.create(user_id: 2, video_id: 2, rating: 3, comment: "Not very good.")
 
-QueueItem.create(user_id: 2, video_id: 2)
-QueueItem.create(user_id: 2, video_id: 3)
-QueueItem.create(user_id: 2, video_id: 1)
+Fabricate(:queue_item, user_id: 2, video_id: 1)
+Fabricate(:queue_item, user_id: 2, video_id: 2)
+Fabricate(:queue_item, user_id: 2, video_id: 3)
