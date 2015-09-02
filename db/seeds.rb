@@ -41,3 +41,5 @@ Review.create(user_id: 2, video_id: 2, rating: 3, comment: "Not very good.")
 Fabricate(:queue_item, user_id: 2, video_id: 1)
 Fabricate(:queue_item, user_id: 2, video_id: 2)
 Fabricate(:queue_item, user_id: 2, video_id: 3)
+
+Relationship.create(leader_id: 2, follower_id: 1)
