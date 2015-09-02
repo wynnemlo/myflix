@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.0.0'
 
 gem 'bootstrap-sass'
 gem 'coffee-rails'
@@ -10,7 +10,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
 gem 'bootstrap_form'
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 
 group :development do
   gem 'thin'
