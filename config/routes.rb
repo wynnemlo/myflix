@@ -19,6 +19,9 @@ Myflix::Application.routes.draw do
 
   # Users
   resources :users, only: [:create, :show]
+  get 'forgot_password', to: 'forgot_passwords#new'
+  resources :forgot_passwords, only: [:create]
+  get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'
 
   # Video queue
   resources :queue_items, only: [:create, :destroy]
