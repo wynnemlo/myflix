@@ -32,7 +32,7 @@ describe ForgotPasswordsController do
       it "sets the user's token to a random token" do
         alice = Fabricate(:user, email: 'alice@example.com')
         post :create, email: alice.email
-        expect(alice.token).not_to be_nil
+        expect(alice.reload.token).not_to be_nil
       end
 
       it "sends an email containing a URL with a random token" do
@@ -44,7 +44,6 @@ describe ForgotPasswordsController do
     end
 
     context "with non-existing email" do
-
       it "redirects to the forgot_password page" do
         alice = Fabricate(:user, email: 'alice@example.com')
         post :create, email: 'bob@example.com'
