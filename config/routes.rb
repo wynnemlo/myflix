@@ -20,6 +20,9 @@ Myflix::Application.routes.draw do
   # Users
   resources :users, only: [:create, :show]
 
+  # User Invitations
+  resources :invitations, only: [:new, :create]
+
   # Password retrieval
   get 'forgot_password', to: 'forgot_passwords#new'
   resources :forgot_passwords, only: [:create]
