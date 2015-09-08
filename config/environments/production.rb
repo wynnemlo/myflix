@@ -28,6 +28,7 @@ Myflix::Application.configure do
   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
   :domain         => 'wynnelo-myflix.herokuapp.com',
   :authentication => :plain,
-}
-ActionMailer::Base.delivery_method = :smtp
+  }
+  
+  ActionMailer::Base.delivery_method = :smtp
 end
