@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
     User.find(session[:user_id]) if session[:user_id]
   end
 
+  def redirect_signed_in_user
+    if user_signed_in?
+      flash["danger"] = "You are already signed in."
+      redirect_to home_path
+    end
+  end
+
   def user_signed_in?
     !!current_user
   end

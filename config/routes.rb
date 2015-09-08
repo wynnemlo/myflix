@@ -4,7 +4,7 @@ Myflix::Application.routes.draw do
   root to: 'pages#front'
 
   # Home page
-  get '/home', to: 'videos#index'
+  get 'home', to: 'videos#index'
 
   # Videos and reviews
   resources :videos, only: [:index, :show] do
@@ -22,13 +22,13 @@ Myflix::Application.routes.draw do
 
   # User Invitations
   resources :invitations, only: [:new, :create]
+  get 'expired_token', to: 'pages#expired_token'
 
   # Password retrieval
   get 'forgot_password', to: 'forgot_passwords#new'
   resources :forgot_passwords, only: [:create]
   get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'
   resources :password_resets, only: [:show, :create]
-  get 'expired_token', to: 'password_resets#expired_token'
 
   # Video queue
   resources :queue_items, only: [:create, :destroy]
@@ -40,11 +40,11 @@ Myflix::Application.routes.draw do
   resources :relationships, only: [:destroy, :create]
 
   # Login / Logout
-  get '/sign_in', to: 'sessions#new'
-  post '/sign_in', to: 'sessions#create'
-  get '/sign_out', to: 'sessions#destroy'
-  get '/log_out', to: 'sessions#destroy'
-  get '/register', to: 'users#new'
-
+  get 'sign_in', to: 'sessions#new'
+  post 'sign_in', to: 'sessions#create'
+  get 'sign_out', to: 'sessions#destroy'
+  get 'log_out', to: 'sessions#destroy'
+  get 'register', to: 'users#new'
+  get 'register/:token', to: 'users#new_with_invitation_token', as: 'register_with_token'
 
 end

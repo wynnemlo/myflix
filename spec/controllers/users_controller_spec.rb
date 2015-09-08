@@ -7,6 +7,39 @@ describe UsersController do
       expect(assigns(:user)).to be_new_record
       expect(assigns(:user)).to be_an_instance_of(User)
     end
+    it "redirects already signed in users to home" do
+      set_current_user
+      get :new
+      expect(response).to redirect_to home_path
+    end
+  end
+
+  describe "GET new_with_invitation_token" do
+    it "renders the :new view template" do
+      invitation = Fabricate(:invitation)
+      get :new_with_invitation_token, token: invitation.token
+      expect(response).to render_template :new
+    end
+    it "sets @user with recipient's email" do
+      invitation = Fabricate(:invitation)
+      get :new_with_invitation_token, token: invitation.token
+      expect(assigns(:user).email).to eq(invitation.recipient_email)
+    end
+    it "sets @invitation_token" do
+      invitation = Fabricate(:invitation)
+      get :new_with_invitation_token, token: invitation.token
+      expect(assigns(:invitation_token)).to eq(invitation.token)
+    end
+    it "redirects to expired token page for invalid tokens" do
+      invitation = Fabricate(:invitation)
+      get :new_with_invitation_token, token: '12345'
+      expect(response).to redirect_to expired_token_path
+    end
+    it "redirects already signed in users to home" do
+      set_current_user
+      get :new
+      expect(response).to redirect_to home_path
+    end
   end
 
   describe "POST create" do
@@ -21,6 +54,29 @@ describe UsersController do
 
       it "redirects to the sign_in page" do
         expect(response).to redirect_to sign_in_path
+      end
+
+      it "makes the user follow the inviter" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'bob@example.com')
+        post :create, user: { email: 'bob@example.com', password: "password", full_name: "Bobby Chan" }, invitation_token: invitation.token
+        bob = User.where(email: 'bob@example.com').first
+        expect(bob.follows?(alice)).to be_truthy
+      end
+
+      it "makes the inviter follow the user" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'bob@example.com')
+        post :create, user: { email: 'bob@example.com', password: "password", full_name: "Bobby Chan" }, invitation_token: invitation.token
+        bob = User.where(email: 'bob@example.com').first
+        expect(alice.follows?(bob)).to be_truthy
+      end
+
+      it "expires the invitation upon acceptance" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'bob@example.com')
+        post :create, user: { email: 'bob@example.com', password: "password", full_name: "Bobby Chan" }, invitation_token: invitation.token
+        expect(invitation.reload.token).to be_nil
       end
     end
 
