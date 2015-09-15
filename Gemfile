@@ -12,6 +12,8 @@ gem 'pg'
 gem 'bootstrap_form'
 gem 'bcrypt'
 gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 gem 'unicorn'
 
 group :development do

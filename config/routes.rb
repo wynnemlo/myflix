@@ -1,7 +1,16 @@
+require 'sidekiq/web'
+# Authentication for Sidekiq
+Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+  username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
+end if Rails.env.production?
+
 Myflix::Application.routes.draw do
   get 'ui(/:action)', controller: 'ui'
 
   root to: 'pages#front'
+
+  # Sidekiq monitor panel
+  mount Sidekiq::Web, at: '/sidekiq'
 
   # Home page
   get 'home', to: 'videos#index'
