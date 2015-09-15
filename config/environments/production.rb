@@ -27,11 +27,11 @@ Myflix::Application.configure do
   :address        => ENV['MAILGUN_SMTP_SERVER'],
   :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-  :domain         => 'wynnelo-myflix.herokuapp.com',
+  :domain         => 'wynnemlo-myflix.herokuapp.com',
   :authentication => :plain,
   }
   
   ActionMailer::Base.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'wynnelo-myflix.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'wynnemlo-myflix.herokuapp.com' }
   
 end
