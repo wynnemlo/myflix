@@ -9,8 +9,9 @@
 Category.create(name: 'Comedy')
 Category.create(name: 'Drama')
 
-User.create(full_name: "Wynne Lo", password: "testing", email: "wynnemlo@gmail.com")
-User.create(full_name: "Bobby Chan", password: "testing", email: "bobby@gmail.com")
+User.create(full_name: "Wynne Lo", password: "testing", email: "wynnemlo@gmail.com", admin: false)
+User.create(full_name: "Bobby Chan", password: "testing", email: "bobby@gmail.com", admin: false)
+User.create(full_name: "Ahri Lee", password: "testing", email: "ahri@gmail.com", admin: true)
 
 Video.create(title: 'Family Guy', description: 'A show about an American family', small_cover_url: '/images/family_guy.jpg', large_cover_url: '/images/futurama.jpg', category_id: 1)
 Video.create(title: 'Southpark', description: 'A show 4 kids', small_cover_url: '/images/south_park.jpg', large_cover_url: '/images/south_park.jpg', category_id: 1)

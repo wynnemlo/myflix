@@ -15,6 +15,9 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'unicorn'
+gem "mini_magick"
+gem 'carrierwave'
+gem 'carrierwave-aws'
 
 group :development do
   gem 'thin'

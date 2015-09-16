@@ -12,4 +12,4 @@
       .video.col-md-2
         = video.title
         = link_to video_path(video) do 
-          %img(src="#{video.small_cover_url}")
+          = image_tag video.small_cover_url.to_s
