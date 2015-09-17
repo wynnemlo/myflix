@@ -18,6 +18,8 @@ gem 'unicorn'
 gem "mini_magick"
 gem 'carrierwave'
 gem 'carrierwave-aws'
+gem 'stripe'
+gem 'figaro'
 
 group :development do
   gem 'thin'
@@ -40,6 +42,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'launchy'
+  gem 'vcr'
 end
 
 group :production do

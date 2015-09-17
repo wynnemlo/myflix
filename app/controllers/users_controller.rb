@@ -22,6 +22,13 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      # Charge credit card
+      token = params[:stripeToken]      
+      StripeWrapper::Charge.create(
+        :amount => 999,
+        :source => token,
+        :description => "Sign up charge for #{@user.email}"
+      )
       handle_invitation
       AppMailer.delay.send_welcome_email(@user)
       flash["success"] = "Thank you for your registration."
