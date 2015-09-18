@@ -21,18 +21,23 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save
+    if @user.valid?
       # Charge credit card
-      token = params[:stripeToken]      
-      StripeWrapper::Charge.create(
+      charge = StripeWrapper::Charge.create(
         :amount => 999,
-        :source => token,
+        :source => params[:stripeToken],
         :description => "Sign up charge for #{@user.email}"
       )
-      handle_invitation
-      AppMailer.delay.send_welcome_email(@user)
-      flash["success"] = "Thank you for your registration."
-      redirect_to sign_in_path
+      if charge.successful?
+        @user.save
+        handle_invitation
+        AppMailer.delay.send_welcome_email(@user)
+        flash["success"] = "Thank you for your registration."
+        redirect_to sign_in_path
+      else
+        flash["danger"] = charge.error_message
+        render :new
+      end
     else
       render :new
     end
