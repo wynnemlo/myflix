@@ -27,7 +27,13 @@ VCR.configure do |c|
   c.ignore_localhost = true
 end
 
+Capybara.javascript_driver = :webkit
 Capybara.server_port = 52662
+
+Capybara::Webkit.configure do |config|
+  config.allow_unknown_urls
+  config.ignore_ssl_errors
+end
 
 RSpec.configure do |config|
   # ## Mock Framework

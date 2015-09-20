@@ -21,3 +21,10 @@ end
 def click_on_video_on_home_page(video)
   find("a[href='/videos/#{video.id}']").click
 end
+
+def fill_in_credit_card(card_number)
+  fill_in "Credit Card Number", with: card_number
+  fill_in "Security Code", with: '123'
+  select "10 - October", from: "date_month"
+  select "2016", from: "date_year"
+end

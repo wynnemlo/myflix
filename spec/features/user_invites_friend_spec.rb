@@ -7,6 +7,7 @@ feature "User invites friend" do
 
     invite_a_friend
     friend_accepts_invitation
+    sleep 5
     friend_signs_in
 
     friend_should_follow(alice)
@@ -30,15 +31,12 @@ def friend_accepts_invitation
   current_email.click_link "Accept this invitation"
   fill_in "Password", with: "password"
   fill_in "Full name", with: "Bobby Chan"
-  fill_in "card-number", with: "4242424242424242"
-  fill_in "cvc", with: '123'
-  select "10 - October", from: "date_month"
-  select "2016", from: "date_year"
+  fill_in_credit_card("4242424242424242")
   click_button "Sign Up"
 end
 
 def friend_signs_in
-  fill_in "Email Address", with: 'bobbychan@example.com'
+  fill_in "Email Address", with: "bobbychan@example.com"
   fill_in "Password", with: "password"
   click_button 'Sign in'
 end

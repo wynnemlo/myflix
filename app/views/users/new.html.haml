@@ -11,7 +11,7 @@
         %header
           %h1 Register
         %fieldset
-          = f.email_field :email
+          = f.email_field :email, label: "Email Address"
           = f.password_field :password
           = f.text_field :full_name
           = hidden_field_tag :invitation_token, @invitation_token
