@@ -39,8 +39,4 @@ Video.create(title: 'Futurama', description: 'A show about the future', category
 Review.create(user_id: 2, video_id: 2, rating: 5, comment: "Awesome video!")
 Review.create(user_id: 2, video_id: 2, rating: 3, comment: "Not very good.")
 
-Fabricate(:queue_item, user_id: 2, video_id: 1)
-Fabricate(:queue_item, user_id: 2, video_id: 2)
-Fabricate(:queue_item, user_id: 2, video_id: 3)
-
 Relationship.create(leader_id: 2, follower_id: 1)
