@@ -19,6 +19,7 @@ Myflix::Application.routes.draw do
   resources :videos, only: [:index, :show] do
     collection do
       get 'search', to: 'videos#search'
+      get 'advanced_search', to: 'videos#advanced_search', as: :advanced_search
     end
     resources :reviews, only: [:create]
   end
@@ -26,6 +27,7 @@ Myflix::Application.routes.draw do
   # Admin
   namespace :admin do
     resources :videos, only: [:new, :create]
+    resources :payments, only: [:index]
   end
 
   # Video categories
@@ -60,5 +62,7 @@ Myflix::Application.routes.draw do
   get 'log_out', to: 'sessions#destroy'
   get 'register', to: 'users#new'
   get 'register/:token', to: 'users#new_with_invitation_token', as: 'register_with_token'
+
+  mount StripeEvent::Engine, at: '/stripe_events'
 
 end

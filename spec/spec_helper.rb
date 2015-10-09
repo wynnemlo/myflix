@@ -27,7 +27,6 @@ VCR.configure do |c|
   c.ignore_localhost = true
 end
 
-Capybara.javascript_driver = :webkit
 Capybara.server_port = 52662
 
 Capybara::Webkit.configure do |config|
@@ -36,6 +35,7 @@ Capybara::Webkit.configure do |config|
 end
 
 RSpec.configure do |config|
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -46,6 +46,11 @@ RSpec.configure do |config|
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  # For elasticsearch
+  config.before(:each, elasticsearch: true) do
+    Video.__elasticsearch__.create_index! force: true
+  end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
